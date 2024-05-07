@@ -13,13 +13,21 @@ import java.util.Map;
 
 public class AuctionImpl extends UnicastRemoteObject implements Auction {
 
-    private Map<String, Double> currentBids;
-    private Map<String, String> highestBidder;
+    private static AuctionImpl instance;
+    private final Map<String, Double> currentBids;
+    private final Map<String, String> highestBidder;
 
-    protected AuctionImpl() throws RemoteException {
+    private AuctionImpl() throws RemoteException {
         super();
         currentBids = new HashMap<>();
         highestBidder = new HashMap<>();
+    }
+
+    public static AuctionImpl getInstance() throws RemoteException{
+        if (instance == null) {
+            return new AuctionImpl();
+        }
+        return instance;
     }
 
     @Override
@@ -35,7 +43,7 @@ public class AuctionImpl extends UnicastRemoteObject implements Auction {
 
     @Override
     public synchronized String getCurrentBid(String itemID) throws RemoteException {
-        return "Item: " + itemID + ", Highest Bid: " + currentBids.get(itemID) + ", Bidder: " + highestBidder.get(itemID);
+        return "Item ID: " + itemID + ", Highest Bid: " + currentBids.get(itemID) + ", Bidder: " + highestBidder.get(itemID);
     }
 
     @Override

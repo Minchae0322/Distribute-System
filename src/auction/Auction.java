@@ -6,7 +6,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-public interface Auction extends Remote {
+public interface Auction extends Remote{
     boolean placeBid(String itemID, double bid, String bidderName) throws
             RemoteException;
 
